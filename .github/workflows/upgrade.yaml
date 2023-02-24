@@ -28,3 +28,17 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upgrade arm
+        run: |
+          git checkout apple_silicon
+          wget "https://github.com/apernet/hysteria/releases/download/${last_version}/hysteria-darwin-arm64" -O hysteria
+          wget https://raw.githubusercontent.com/V2RaySSR/Tools/master/acl.zip
+          unzip -o acl.zip && rm acl.zip
+          rm -rf __MACOSX
+          git add -A
+          git commit -am 'feat: upgrade hysteria.'
+      - name: Push changes to apple_silicon branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: apple_silicon
