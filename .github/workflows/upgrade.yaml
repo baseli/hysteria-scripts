@@ -1,0 +1,30 @@
+name: Upgrade hysteria
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upgrade-hysteria:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Upgrade hysteria
+        run: |
+          sudo apt update
+          sudo apt install -y jq wget
+          last_version=`curl --silent "https://api.github.com/repos/apernet/hysteria/releases/latest" | jq -r .tag_name`
+          wget "https://github.com/apernet/hysteria/releases/download/${last_version}/hysteria-darwin-amd64" -O hysteria
+          wget https://raw.githubusercontent.com/V2RaySSR/Tools/master/acl.zip
+          unzip -o acl.zip && rm acl.zip
+          rm -rf __MACOSX
+      - name: Set git user
+        run: |
+          git config --local user.email liwd@outlook.it
+          git config --local user.name liwd
+          git add -A
+          git commit -am 'feat: upgrade hysteria.'
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
