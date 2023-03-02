@@ -1,9 +1,5 @@
 #/bin/sh
 
-# 执行文件位置
-HYSTERIA_PATH=REPLAT_HERE
-#配置文件地址
-HYSTERIA_CONFIG_PATH=REPLAT_HERE
 # 日志等级
 HYSTERIA_LOG_LEVEL=warn
 
@@ -29,7 +25,7 @@ un_proxy() {
 }
 
 start() {
-  HYSTERIA_LOG_LEVEL=${HYSTERIA_LOG_LEVEL} ${HYSTERIA_PATH} -c ${HYSTERIA_CONFIG_PATH} client > hysteria.log 2>&1 & echo $! > hysteria.pid
+  HYSTERIA_LOG_LEVEL=${HYSTERIA_LOG_LEVEL} ./hysteria -c ./config.json client > hysteria.log 2>&1 & echo $! > hysteria.pid
   if [ -s hysteria.pid ]; then
     echo "Started hysteria at `cat hysteria.pid`!"
     proxy

@@ -1,0 +1,16 @@
+{
+  "server": "ip:port",
+  "server_name": "domain",
+  "sni": "domain",
+  "obfs": "obfs",
+  "up_mbps": 110,
+  "down_mbps": 1100,
+  "socks5": {
+    "listen": "127.0.0.1:1080"
+  },
+  "http": {
+    "listen": "127.0.0.1:7890"
+  },
+  "acl": "acl/routes.acl",
+  "mmdb": "acl/Country.mmdb"
+}
